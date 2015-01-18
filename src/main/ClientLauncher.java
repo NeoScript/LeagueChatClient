@@ -10,6 +10,7 @@ import javafx.stage.Stage;
 /**
  * Created by Nasir on 1/14/2015.
  */
+
 public class ClientLauncher extends Application {
     private static LolChat api;
 
@@ -30,5 +31,12 @@ public class ClientLauncher extends Application {
 
     public static LolChat getApi(){
         return api;
+    }
+    public static void setApi(LolChat lolChat){
+         api = lolChat;
+    }
+    @Override
+    public void stop(){
+        System.exit(0);
     }
 }

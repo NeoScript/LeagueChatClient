@@ -5,13 +5,20 @@ import com.github.theholywaffle.lolchatapi.FriendRequestPolicy;
 import com.github.theholywaffle.lolchatapi.LolChat;
 import com.github.theholywaffle.lolchatapi.wrapper.Friend;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.stage.Stage;
 import main.ClientLauncher;
+import sun.applet.Main;
 
+import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -31,11 +38,8 @@ public class LoginController implements Initializable {
     @FXML
     Button loginButton;
 
-    private static LolChat api;
-
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        api = ClientLauncher.getApi();
 
         setDropDownButtonItems();
 
@@ -74,17 +78,29 @@ public class LoginController implements Initializable {
     private void loginButtonPressed() throws Exception{
         System.out.println("pressed login");
         String selectedServer = serverDropDownButton.getSelectionModel().getSelectedItem();
-        api = new LolChat(determineServer(selectedServer), FriendRequestPolicy.MANUAL);
-        if(api.login(userNameField.getText(),passwordField.getText(), true)){
+        ClientLauncher.setApi(new LolChat(determineServer(selectedServer), FriendRequestPolicy.MANUAL));
+        if(ClientLauncher.getApi().login(userNameField.getText(), passwordField.getText(), true)){
             System.out.println("connected");
-            for(Friend f: api.getFriends()){
+            for(Friend f: ClientLauncher.getApi().getFriends()){
                 System.out.println(f.getName());
-
-
             }
+
+            openMainStage();
         }
 
         //TODO: close this window and open next one
+    }
+
+    private void openMainStage() throws IOException {
+        Stage parent = (Stage) loginButton.getScene().getWindow();
+        parent.close();
+
+        FXMLLoader loader = new FXMLLoader();
+        Parent root = loader.load(ClientLauncher.class.getResource("forms/Main.fxml"));
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.show();
+
     }
 
     private ChatServer determineServer(String selection) {

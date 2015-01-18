@@ -31,10 +31,12 @@ public class LoginController implements Initializable {
     @FXML
     Button loginButton;
 
-    private LolChat api;
+    private static LolChat api;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        api = ClientLauncher.getApi();
+
         setDropDownButtonItems();
 
         userNameField.setOnAction(e -> {

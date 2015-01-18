@@ -1,5 +1,6 @@
 package main;
 
+import com.github.theholywaffle.lolchatapi.LolChat;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -10,6 +11,8 @@ import javafx.stage.Stage;
  * Created by Nasir on 1/14/2015.
  */
 public class ClientLauncher extends Application {
+    private static LolChat api;
+
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("forms/Login.fxml"));
@@ -23,5 +26,9 @@ public class ClientLauncher extends Application {
 
     public static void main(String[] args){
         launch(args);
+    }
+
+    public static LolChat getApi(){
+        return api;
     }
 }

@@ -88,7 +88,6 @@ public class LoginController implements Initializable {
             openMainStage();
         }
 
-        //TODO: close this window and open next one
     }
 
     private void openMainStage() throws IOException {

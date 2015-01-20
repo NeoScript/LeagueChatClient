@@ -37,6 +37,7 @@ public class ClientLauncher extends Application {
     }
     @Override
     public void stop(){
+        api.disconnect();
         System.exit(0);
     }
 }

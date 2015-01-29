@@ -1,4 +1,4 @@
-package main.forms;
+package main.client;
 
 import com.github.theholywaffle.lolchatapi.ChatServer;
 import com.github.theholywaffle.lolchatapi.FriendRequestPolicy;
@@ -14,11 +14,9 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-import main.ClientLauncher;
-import sun.applet.Main;
+import main.ChatClient;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -77,11 +75,12 @@ public class LoginController implements Initializable {
 
     private void loginButtonPressed() throws Exception{
         System.out.println("pressed login");
+        System.out.println(userNameField.getText().concat("::").concat(passwordField.getText()));
         String selectedServer = serverDropDownButton.getSelectionModel().getSelectedItem();
-        ClientLauncher.setApi(new LolChat(determineServer(selectedServer), FriendRequestPolicy.MANUAL));
-        if(ClientLauncher.getApi().login(userNameField.getText(), passwordField.getText(), true)){
+        ChatClient.setApi(new LolChat(determineServer(selectedServer), FriendRequestPolicy.MANUAL));
+        if(ChatClient.getApi().login(userNameField.getText(), passwordField.getText(), true)){
             System.out.println("connected");
-            for(Friend f: ClientLauncher.getApi().getFriends()){
+            for(Friend f: ChatClient.getApi().getFriends()){
                 System.out.println(f.getName());
             }
 
@@ -95,7 +94,7 @@ public class LoginController implements Initializable {
         parent.close();
 
         FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(ClientLauncher.class.getResource("forms/Main.fxml"));
+        Parent root = loader.load(ChatClient.class.getResource("forms/Main.fxml"));
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.show();

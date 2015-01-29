@@ -7,17 +7,18 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
+import java.net.URL;
+
 /**
  * Created by Nasir on 1/14/2015.
  */
 
-public class ClientLauncher extends Application {
+public class ChatClient extends Application {
     private static LolChat api;
 
     @Override
     public void start(Stage primaryStage) throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("forms/Login.fxml"));
-
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
@@ -40,4 +41,6 @@ public class ClientLauncher extends Application {
         api.disconnect();
         System.exit(0);
     }
+
+
 }

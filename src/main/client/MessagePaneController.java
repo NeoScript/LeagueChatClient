@@ -1,11 +1,13 @@
 package main.client;
 
 import com.github.theholywaffle.lolchatapi.wrapper.Friend;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
+import javafx.scene.web.WebView;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -35,23 +37,28 @@ public class MessagePaneController implements Initializable {
                 sendButton.setDisable(false);
             }
         });
+
     }
 
-    public void setFriend(Friend f) {
+    public void initVariables(Friend f, String firstMessage) {
         currFriend = f;
-
-        currFriend.setChatListener((friend, message) -> {
-            System.out.println(friend.getName().concat(":::").concat(message));
-            messageListView.getItems().add(friend.getName() + ": " + message);
-        });
-
+        Platform.runLater(() -> messageListView.getItems().add(f.getName() + ": " + firstMessage));
     }
 
     private void sendButtonClicked() {
         String chatMessage = inputField.getText();
         if (!chatMessage.isEmpty() && currFriend != null) {
             currFriend.sendMessage(chatMessage);
-            messageListView.getItems().add("Me: " + chatMessage);
+            Platform.runLater(() -> {
+                messageListView.getItems().add("Me: " + chatMessage);
+                inputField.clear();
+            });
+
         }
     }
+
+    public void handleMessage(String message) {
+        Platform.runLater(() -> messageListView.getItems().add(currFriend.getName() + ": " + message));
+    }
+
 }

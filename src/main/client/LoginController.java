@@ -62,6 +62,8 @@ public class LoginController implements Initializable {
                 e1.printStackTrace();
             }
         });
+
+        serverDropDownButton.getSelectionModel().select("NA2");
     }
 
     private void setDropDownButtonItems() {
@@ -73,14 +75,14 @@ public class LoginController implements Initializable {
         serverDropDownButton.getItems().addAll(itemList);
     }
 
-    private void loginButtonPressed() throws Exception{
+    private void loginButtonPressed() throws Exception {
         System.out.println("pressed login");
-        System.out.println(userNameField.getText().concat("::").concat(passwordField.getText()));
         String selectedServer = serverDropDownButton.getSelectionModel().getSelectedItem();
         ChatClient.setApi(new LolChat(determineServer(selectedServer), FriendRequestPolicy.MANUAL));
-        if(ChatClient.getApi().login(userNameField.getText(), passwordField.getText(), true)){
+
+        if (ChatClient.getApi().login(userNameField.getText(), passwordField.getText(), true)) {
             System.out.println("connected");
-            for(Friend f: ChatClient.getApi().getFriends()){
+            for (Friend f : ChatClient.getApi().getFriends()) {
                 System.out.println(f.getName());
             }
 

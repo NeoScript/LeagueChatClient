@@ -13,6 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import main.ChatClient;
+import org.jivesoftware.smack.Chat;
 
 import java.io.IOException;
 import java.net.URL;
@@ -36,46 +37,64 @@ public class MainController implements Initializable {
         initApiVariables();
         populateAccordion();
 
+        new Thread(() -> {
+            try{
+                while(true){
+                    Thread.sleep(10_000);
+                    populateAccordion();
+                }
+            }catch (InterruptedException e){
+                e.printStackTrace();
+            }
 
+        }).start();
     }
 
     private void initApiVariables() {
         LolStatus status = new LolStatus();
         status.setStatusMessage("using custom shitty client");
-        status.setRankedLeagueDivision(LolStatus.Division.I);
         status.setRankedLeagueTier(LolStatus.Tier.CHALLENGER);
-        status.setRankedLeagueName("w0wsotroll");
+        status.setRankedLeagueDivision(LolStatus.Division.I);
         ChatClient.getApi().setStatus(status);
 
         ChatClient.getApi().addChatListener((friend, message) -> {
             System.out.println(friend.getName() + ": " + message);
 
             handler.handleMessage(friend, message);
-
-
-            /*if(!chatPaneMap.containsKey(friend)){
-                Tab messagingPane = new Tab(friend.getName());
-                Pane content = produceMessagingPane(friend, message);
-                messagingPane.setContent(content);
-                chatPaneMap.put(friend, messagingPane);
-                Platform.runLater(() -> tabPane.getTabs().add(messagingPane));
-            }else{
-
-            }*/
-            /*Scanner keyboard = new Scanner(System.in);
-            String msg = keyboard.nextLine();
-            friend.sendMessage(msg);*/
         });
 
     }
 
+    //TODO: clean dis shizz up
     private void populateAccordion() {
-        friendGroupArrayList = new ArrayList<>(ChatClient.getApi().getFriendGroups());
-        friendsListAccordion.getPanes().clear();
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
 
-        for (FriendGroup fg : ChatClient.getApi().getFriendGroups()) {
-            friendsListAccordion.getPanes().add(produceFriendGroupPane(fg));
-        }
+                String openedPane = null;
+                try {
+                    openedPane = friendsListAccordion.getExpandedPane().getText();
+                }catch (NullPointerException e){
+                    System.out.println("expanded pane is null");
+                }
+                friendGroupArrayList = new ArrayList<>(ChatClient.getApi().getFriendGroups());
+                friendsListAccordion.getPanes().clear();
+
+                for (FriendGroup fg : ChatClient.getApi().getFriendGroups()) {
+                    friendsListAccordion.getPanes().add(produceFriendGroupPane(fg));
+                }
+                if(openedPane!=null){
+                    TitledPane toOpen;
+                    for(TitledPane pane: friendsListAccordion.getPanes()){
+                        if (pane.getText().equals(openedPane)){
+                            friendsListAccordion.setExpandedPane(pane);
+                        }
+                    }
+
+                }
+            }
+        });
+
 
     }
 
@@ -108,7 +127,7 @@ public class MainController implements Initializable {
             if (activeMessagingList.containsKey(friend.getName())) {
                 activeMessagingList.get(friend.getName()).handleMessage(message);
             } else {
-                FXMLLoader loader = new FXMLLoader(ChatClient.class.getResource("forms/MessagePane.fxml"));
+                FXMLLoader loader = new FXMLLoader(ChatClient.class.getResource("resources/forms/MessagePane.fxml"));
                 Pane root = null;
                 try {
                     root = loader.load();

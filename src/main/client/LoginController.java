@@ -4,6 +4,7 @@ import com.github.theholywaffle.lolchatapi.ChatServer;
 import com.github.theholywaffle.lolchatapi.FriendRequestPolicy;
 import com.github.theholywaffle.lolchatapi.LolChat;
 import com.github.theholywaffle.lolchatapi.wrapper.Friend;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -13,13 +14,17 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import main.ChatClient;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.Scanner;
 
 /**
  * Created by Nasir on 1/14/2015.
@@ -63,7 +68,26 @@ public class LoginController implements Initializable {
             }
         });
 
-        serverDropDownButton.getSelectionModel().select("NA2");
+        try{
+            loadDefaultLogin();
+        }catch (IOException e){}
+
+    }
+
+    private void loadDefaultLogin() throws IOException {
+        File loginInfo = new File("login.txt");
+        if (loginInfo.exists()){
+            Scanner scan = new Scanner(loginInfo);
+            Platform.runLater(new Runnable() {
+                @Override
+                public void run() {
+                    userNameField.setText(scan.nextLine());
+                    passwordField.setText(scan.nextLine());
+                    serverDropDownButton.getSelectionModel().select(scan.nextLine());
+                }
+            });
+
+        }
     }
 
     private void setDropDownButtonItems() {
@@ -96,9 +120,11 @@ public class LoginController implements Initializable {
         parent.close();
 
         FXMLLoader loader = new FXMLLoader();
-        Parent root = loader.load(ChatClient.class.getResource("forms/Main.fxml"));
+        Parent root = loader.load(ChatClient.class.getResource("resources/forms/Main.fxml"));
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
+
+        stage.getIcons().setAll(ChatClient.icon);
         stage.show();
 
     }

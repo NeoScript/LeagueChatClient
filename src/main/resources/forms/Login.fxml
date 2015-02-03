@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.image.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.PasswordField?>
@@ -7,19 +11,22 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-      prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="main.client.LoginController">
+
+<Pane id="loginPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" stylesheets="@style1.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.client.LoginController">
     <children>
-        <VBox layoutX="194.0" layoutY="146.0" spacing="8.0">
+        <VBox alignment="CENTER" layoutX="193.0" layoutY="36.0" spacing="8.0">
             <children>
-                <TextField fx:id="userNameField" layoutX="207.0" layoutY="140.0" promptText="User Name"/>
-                <PasswordField fx:id="passwordField" layoutX="207.0" layoutY="209.0" promptText="Password"/>
+            <ImageView fitHeight="200.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../icon.png" />
+               </image>
+            </ImageView>
+                <TextField fx:id="userNameField" alignment="CENTER" layoutX="207.0" layoutY="140.0" promptText="User Name" styleClass="text-field" />
+                <PasswordField fx:id="passwordField" alignment="CENTER" layoutX="207.0" layoutY="209.0" promptText="Password" />
                 <HBox spacing="10.0">
                     <children>
-                        <ComboBox fx:id="serverDropDownButton" prefWidth="150.0" promptText="Select Server"/>
-                        <Button fx:id="loginButton" layoutX="355.0" layoutY="228.0" mnemonicParsing="false"
-                                text="Login"/>
+                        <ComboBox id="serverComboBox" fx:id="serverDropDownButton" prefWidth="150.0" promptText="Select Server" />
+                        <Button fx:id="loginButton" layoutX="355.0" layoutY="228.0" mnemonicParsing="false" text="Login" />
                     </children>
                 </HBox>
             </children>

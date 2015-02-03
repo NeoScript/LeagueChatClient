@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<VBox xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.client.MainController">
+
+<VBox id="mainPane" stylesheets="@style1.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="main.client.MainController">
     <children>
-        <SplitPane dividerPositions="0.22621809744779584" layoutX="-6.0" layoutY="33.0" AnchorPane.bottomAnchor="0.0"
-                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"
-                   VBox.vgrow="ALWAYS">
+        <SplitPane dividerPositions="0.225" layoutX="-6.0" layoutY="33.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" VBox.vgrow="ALWAYS">
             <items>
                 <AnchorPane prefWidth="250.0">
                     <children>
-                        <VBox prefHeight="398.0" prefWidth="147.0" spacing="5.0" AnchorPane.bottomAnchor="0.0"
-                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox prefHeight="398.0" prefWidth="147.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <TextField promptText="Search"/>
+                                <TextField alignment="CENTER" promptText="Search" />
                                 <HBox VBox.vgrow="ALWAYS">
                                     <children>
                                         <Accordion fx:id="friendsListAccordion" HBox.hgrow="ALWAYS" VBox.vgrow="ALWAYS">
                                             <panes>
-                                                <TitledPane animated="false" text="general"/>
+                                                <TitledPane alignment="CENTER" animated="false" text="general" />
                                             </panes>
                                         </Accordion>
                                     </children>
@@ -29,9 +28,7 @@
                 </AnchorPane>
                 <AnchorPane>
                     <children>
-                        <TabPane fx:id="tabPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0"
-                                 prefWidth="525.0" side="BOTTOM" AnchorPane.bottomAnchor="0.0"
-                                 AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+                        <TabPane fx:id="tabPane" minHeight="-Infinity" minWidth="-Infinity" prefHeight="450.0" prefWidth="525.0" side="BOTTOM" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                     </children>
                 </AnchorPane>
             </items>

@@ -5,6 +5,8 @@ import com.github.theholywaffle.lolchatapi.FriendRequestPolicy;
 import com.github.theholywaffle.lolchatapi.LolChat;
 import com.github.theholywaffle.lolchatapi.wrapper.Friend;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -45,6 +47,7 @@ public class LoginController implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
 
         setDropDownButtonItems();
+        loginButton.setDisable(true);
 
         userNameField.setOnAction(e -> {
             passwordField.requestFocus();
@@ -58,6 +61,12 @@ public class LoginController implements Initializable {
                 serverDropDownButton.requestFocus();
                 serverDropDownButton.show();
             }
+
+        passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (passwordField.getText()!= null && userNameField.getText()!= null){
+                loginButton.setDisable(false);
+            }
+        });
 
         });
         loginButton.setOnAction(e -> {
@@ -81,9 +90,17 @@ public class LoginController implements Initializable {
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    userNameField.setText(scan.nextLine());
-                    passwordField.setText(scan.nextLine());
-                    serverDropDownButton.getSelectionModel().select(scan.nextLine());
+                    try{
+                        userNameField.setText(scan.nextLine());
+                        passwordField.setText(scan.nextLine());
+                        serverDropDownButton.getSelectionModel().select(scan.nextLine());
+                        loginButton.setDisable(false);
+                    }catch (Exception e){
+                        userNameField.clear();
+                        passwordField.clear();
+                        serverDropDownButton.getSelectionModel().selectFirst();
+                        loginButton.setDisable(true);
+                    }
                 }
             });
 
@@ -121,6 +138,7 @@ public class LoginController implements Initializable {
 
         FXMLLoader loader = new FXMLLoader();
         Parent root = loader.load(ChatClient.class.getResource("resources/forms/Main.fxml"));
+
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
 

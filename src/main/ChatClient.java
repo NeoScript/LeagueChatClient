@@ -7,6 +7,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * Created by Nasir on 1/14/2015.
@@ -14,14 +15,17 @@ import javafx.stage.Stage;
 
 public class ChatClient extends Application {
     private static LolChat api;
-    public static final Image icon = new Image("main/resources/icon.png");
+    public static Image icon;
     @Override
     public void start(Stage primaryStage) throws Exception {
+        icon = new Image("main/resources/icon.png");
+
         Parent root = FXMLLoader.load(getClass().getResource("resources/forms/Login.fxml"));
         Scene scene = new Scene(root);
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.getIcons().setAll(icon);
+        primaryStage.setResizable(false);
         primaryStage.show();
     }
 
@@ -37,7 +41,10 @@ public class ChatClient extends Application {
     }
     @Override
     public void stop(){
-        api.disconnect();
+        if(api!=null && api.isConnected()){
+            api.disconnect();
+        }
+
         System.exit(0);
     }
 

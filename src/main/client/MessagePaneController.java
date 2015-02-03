@@ -2,6 +2,10 @@ package main.client;
 
 import com.github.theholywaffle.lolchatapi.wrapper.Friend;
 import javafx.application.Platform;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -31,6 +35,7 @@ public class MessagePaneController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        sendButton.setDisable(true);
         sendButton.setOnAction(e -> sendButtonClicked());
         inputField.setOnAction(e -> sendButton.fire());
         inputField.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -40,7 +45,6 @@ public class MessagePaneController implements Initializable {
                 sendButton.setDisable(false);
             }
         });
-
     }
 
     public void initVariables(Friend f, String firstMessage) {

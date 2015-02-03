@@ -48,6 +48,7 @@ public class MainController implements Initializable {
             }
 
         }).start();
+
     }
 
     private void initApiVariables() {

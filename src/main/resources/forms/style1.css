@@ -1,3 +1,72 @@
 .button {
+    -fx-font: 10pt "Seogoe UI";
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #0098fe;
+}
+.button:disabled{
+    -fx-background-color: red;
+}
 
+.combo-box{
+    -fx-font: 10pt "Seogoe UI";
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+    -fx-background-color: #0098fe;
+}
+.combo-box .cell{
+    -fx-text-fill: white;
+    -fx-background-color: #0098fe;
+}
+
+.text-field{
+    -fx-font: 10pt "Seogoe UI";
+    -fx-font-weight: bold;
+    -fx-text-alignment: left;
+    -fx-text-fill: white;
+    -fx-background-color: #2b2b2b;
+    -fx-border-color: #0098fe;
+    -fx-border-radius: 3px;
+}
+
+#loginPane{
+    -fx-background-color: #2b2b2b;
+    -fx-font: 12pt "Seogoe UI";
+    -fx-font-weight: bold;
+}
+
+.tab-pane{
+    -fx-background-color: #2b2b2b;
+}
+
+.tab-pane .tab{
+    -fx-font: 10pt "Seogoe UI";
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    -fx-background-color: #005bae;
+}
+
+.tab-pane .tab:selected{
+    -fx-background-color: #00ff31;
+}
+
+.tab:selected .tab-label{
+    -fx-font: 10pt "Seogoe UI";
+    -fx-font-weight: bold;
+    -fx-text-fill: white;
+}
+
+.list-view .list-cell{
+    -fx-background-color: #2b2b2b;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+}
+
+.list-view{
+    -fx-background-color: #2b2b2b;
+}
+
+.list-view:filled:selected{
+    -fx-text-fill: white;
+    -fx-background-color: #0098fe;
 }

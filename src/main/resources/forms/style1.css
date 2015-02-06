@@ -1,3 +1,6 @@
+#mainPane{
+    -fx-base: #2b2b2b;
+}
 .button {
     -fx-font: 10pt "Seogoe UI";
     -fx-font-weight: bold;
@@ -35,27 +38,6 @@
     -fx-font-weight: bold;
 }
 
-.tab-pane{
-    -fx-background-color: #2b2b2b;
-}
-
-.tab-pane .tab{
-    -fx-font: 10pt "Seogoe UI";
-    -fx-text-fill: white;
-    -fx-font-weight: bold;
-    -fx-background-color: #005bae;
-}
-
-.tab-pane .tab:selected{
-    -fx-background-color: #00ff31;
-}
-
-.tab:selected .tab-label{
-    -fx-font: 10pt "Seogoe UI";
-    -fx-font-weight: bold;
-    -fx-text-fill: white;
-}
-
 .list-view .list-cell{
     -fx-background-color: #2b2b2b;
     -fx-text-fill: white;
@@ -70,3 +52,37 @@
     -fx-text-fill: white;
     -fx-background-color: #0098fe;
 }
+
+/*-----------------TABS------------*/
+.tab-pane .tab-header-area .tab-header-background {
+    -fx-opacity: 0;
+}
+
+.tab-pane
+{
+    -fx-background-color: #2b2b2b;
+    -fx-tab-min-width:100px;
+}
+
+.tab{
+    -fx-background-insets: 0 1 0 1,0,0;
+}
+.tab-pane .tab
+{
+    -fx-background-color: #3c3c3c;
+
+}
+
+.tab-pane .tab:selected
+{
+    -fx-background-color: #0098fe;
+}
+
+.tab .tab-label {
+    -fx-alignment: CENTER;
+    -fx-text-fill: white;
+    -fx-font-size: 12px;
+    -fx-font-weight: bold;
+}
+
+/*------------------Accordion-----*/

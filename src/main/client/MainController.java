@@ -4,6 +4,8 @@ import com.github.theholywaffle.lolchatapi.LolStatus;
 import com.github.theholywaffle.lolchatapi.wrapper.Friend;
 import com.github.theholywaffle.lolchatapi.wrapper.FriendGroup;
 import javafx.application.Platform;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -92,6 +94,8 @@ public class MainController implements Initializable {
                         }
                     }
 
+                }else{
+                    friendsListAccordion.setExpandedPane(friendsListAccordion.getPanes().get(0));
                 }
             }
         });
@@ -112,6 +116,7 @@ public class MainController implements Initializable {
             @Override
             public void handle(MouseEvent event) {
                 handler.openNewConversation(friendListView.getSelectionModel().getSelectedItem().toString());
+
             }
         });
         pane.setText(group.getName());
@@ -137,17 +142,20 @@ public class MainController implements Initializable {
                 }
                 MessagePaneController controller = loader.getController();
                 controller.initVariables(friend, message);
+
                 activeMessagingList.put(friend.getName(), controller);
 
                 Tab messagingPane = new Tab(friend.getName());
                 messagingPane.setOnCloseRequest(event -> {
                     activeMessagingList.remove(friend.getName());
                 });
+
                 messagingPane.setContent(root);
                 Platform.runLater(new Runnable() {
                     @Override
                     public void run() {
                         tabPane.getTabs().add(messagingPane);
+                        tabPane.getSelectionModel().select(messagingPane);
                     }
                 });
             }

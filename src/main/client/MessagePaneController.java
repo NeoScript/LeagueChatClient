@@ -11,11 +11,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
-import javafx.scene.web.WebView;
 import javafx.stage.Stage;
 
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane;
-import javax.swing.text.IconView;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -32,7 +29,7 @@ public class MessagePaneController implements Initializable {
 
     private Friend currFriend;
 
-
+    public BooleanProperty viewed = new SimpleBooleanProperty(true);
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         sendButton.setDisable(true);
@@ -49,7 +46,6 @@ public class MessagePaneController implements Initializable {
 
     public void initVariables(Friend f, String firstMessage) {
         currFriend = f;
-        Platform.runLater(() -> messageListView.getItems().add(f.getName() + ": " + firstMessage));
     }
 
     private void sendButtonClicked() {
@@ -69,9 +65,20 @@ public class MessagePaneController implements Initializable {
             messageListView.getItems().add(currFriend.getName() + ": " + message);
             Stage stage = (Stage) sendButton.getScene().getWindow();
             stage.toFront();
-            if(!stage.isFocused()){
+            if (!stage.isFocused()) {
                 stage.requestFocus();
+                viewed.set(false);
             }
+
+            inputField.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                    if(newValue){
+                        viewed.set(true);
+                    }
+                }
+            });
+
         });
     }
 

@@ -26,6 +26,7 @@ public class ChatClient extends Application {
         primaryStage.setResizable(false);
         primaryStage.getIcons().setAll(icon);
         primaryStage.setResizable(false);
+        primaryStage.setTitle("League Chat Client");
         primaryStage.show();
     }
 

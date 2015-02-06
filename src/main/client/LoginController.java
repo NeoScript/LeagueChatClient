@@ -143,6 +143,7 @@ public class LoginController implements Initializable {
         stage.setScene(new Scene(root));
 
         stage.getIcons().setAll(ChatClient.icon);
+        stage.setTitle("League Chat Client");
         stage.show();
 
     }

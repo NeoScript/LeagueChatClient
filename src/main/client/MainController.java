@@ -4,8 +4,6 @@ import com.github.theholywaffle.lolchatapi.LolStatus;
 import com.github.theholywaffle.lolchatapi.wrapper.Friend;
 import com.github.theholywaffle.lolchatapi.wrapper.FriendGroup;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,9 +13,7 @@ import javafx.scene.control.*;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import main.ChatClient;
-import org.jivesoftware.smack.Chat;
 
-import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
@@ -40,12 +36,12 @@ public class MainController implements Initializable {
         populateAccordion();
 
         new Thread(() -> {
-            try{
-                while(true){
+            try {
+                while (true) {
                     Thread.sleep(10_000);
                     populateAccordion();
                 }
-            }catch (InterruptedException e){
+            } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
@@ -68,7 +64,6 @@ public class MainController implements Initializable {
 
     }
 
-    //TODO: clean dis shizz up
     private void populateAccordion() {
         Platform.runLater(new Runnable() {
             @Override
@@ -77,7 +72,7 @@ public class MainController implements Initializable {
                 String openedPane = null;
                 try {
                     openedPane = friendsListAccordion.getExpandedPane().getText();
-                }catch (NullPointerException e){
+                } catch (NullPointerException e) {
                     System.out.println("expanded pane is null");
                 }
                 friendGroupArrayList = new ArrayList<>(ChatClient.getApi().getFriendGroups());
@@ -86,15 +81,15 @@ public class MainController implements Initializable {
                 for (FriendGroup fg : ChatClient.getApi().getFriendGroups()) {
                     friendsListAccordion.getPanes().add(produceFriendGroupPane(fg));
                 }
-                if(openedPane!=null){
+                if (openedPane != null) {
                     TitledPane toOpen;
-                    for(TitledPane pane: friendsListAccordion.getPanes()){
-                        if (pane.getText().equals(openedPane)){
+                    for (TitledPane pane : friendsListAccordion.getPanes()) {
+                        if (pane.getText().equals(openedPane)) {
                             friendsListAccordion.setExpandedPane(pane);
                         }
                     }
 
-                }else{
+                } else {
                     friendsListAccordion.setExpandedPane(friendsListAccordion.getPanes().get(0));
                 }
             }
@@ -161,7 +156,7 @@ public class MainController implements Initializable {
             }
         }
 
-        public void openNewConversation(String selectedFriend){
+        public void openNewConversation(String selectedFriend) {
             Friend newFriend = ChatClient.getApi().getFriendByName(selectedFriend);
             handleMessage(newFriend, "Ready to receive messages.");
         }

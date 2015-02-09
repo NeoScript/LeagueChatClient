@@ -5,8 +5,6 @@ import com.github.theholywaffle.lolchatapi.FriendRequestPolicy;
 import com.github.theholywaffle.lolchatapi.LolChat;
 import com.github.theholywaffle.lolchatapi.wrapper.Friend;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -16,12 +14,10 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import main.ChatClient;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -31,7 +27,6 @@ import java.util.Scanner;
 /**
  * Created by Nasir on 1/14/2015.
  * This is the Controller Class for the Login page
- * TODO: Hook up all functionality to buttons
  */
 public class LoginController implements Initializable {
     @FXML
@@ -62,11 +57,11 @@ public class LoginController implements Initializable {
                 serverDropDownButton.show();
             }
 
-        passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (passwordField.getText()!= null && userNameField.getText()!= null){
-                loginButton.setDisable(false);
-            }
-        });
+            passwordField.textProperty().addListener((observable, oldValue, newValue) -> {
+                if (passwordField.getText() != null && userNameField.getText() != null) {
+                    loginButton.setDisable(false);
+                }
+            });
 
         });
         loginButton.setOnAction(e -> {
@@ -77,25 +72,26 @@ public class LoginController implements Initializable {
             }
         });
 
-        try{
+        try {
             loadDefaultLogin();
-        }catch (IOException e){}
+        } catch (IOException e) {
+        }
 
     }
 
     private void loadDefaultLogin() throws IOException {
         File loginInfo = new File("login.txt");
-        if (loginInfo.exists()){
+        if (loginInfo.exists()) {
             Scanner scan = new Scanner(loginInfo);
             Platform.runLater(new Runnable() {
                 @Override
                 public void run() {
-                    try{
+                    try {
                         userNameField.setText(scan.nextLine());
                         passwordField.setText(scan.nextLine());
                         serverDropDownButton.getSelectionModel().select(scan.nextLine());
                         loginButton.setDisable(false);
-                    }catch (Exception e){
+                    } catch (Exception e) {
                         userNameField.clear();
                         passwordField.clear();
                         serverDropDownButton.getSelectionModel().selectFirst();
@@ -129,7 +125,6 @@ public class LoginController implements Initializable {
 
             openMainStage();
         }
-
     }
 
     private void openMainStage() throws IOException {

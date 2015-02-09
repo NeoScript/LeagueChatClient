@@ -30,6 +30,7 @@ public class MessagePaneController implements Initializable {
     private Friend currFriend;
 
     public BooleanProperty viewed = new SimpleBooleanProperty(true);
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         sendButton.setDisable(true);
@@ -73,7 +74,7 @@ public class MessagePaneController implements Initializable {
             inputField.focusedProperty().addListener(new ChangeListener<Boolean>() {
                 @Override
                 public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-                    if(newValue){
+                    if (newValue) {
                         viewed.set(true);
                     }
                 }
